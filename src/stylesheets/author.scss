@@ -1,0 +1,62 @@
+// Author Stylesheet
+// ----------------
+//
+// Hello! What follows is a quickfire guideline for how we style Author.
+// Follow the SMACSS approach as closely as is reasonable. All the normal
+// efforts should be made to avoid over-specificity — do not be afraid of
+// adding lots of classes, in the long run it makes life much, much easier!
+//
+// Try not to attach Javasript bindings to a class that is used for CSS.
+// Instead, prefix said class with "js-" so that we can differentiate.
+//
+// File structure guideline:
+//
+// ├── author.scss (includes base, layout, modules, pages and vendor)
+// ├── base
+// │   ├── _base.scss (includes mixins & variabes)
+// │   ├── _mixins.scss (includes everything in mixins directory)
+// │   ├── _variables.scss (includes everything in variables directory)
+// │   └── mixins
+// │       ├── _clearfix.scss
+// │       └── _some-other-mixin.scss
+// │   └── variables
+// │       ├── _colours.scss
+// │       └── _typography.scss
+// ├── layout
+// │   ├── _layout.scss (includes everything in layout directory)
+// │   ├── _body.scss
+// │   ├── _header.scss
+// │   └── _html.scss
+// ├── modules
+// │   ├── _modules.scss (includes everything in modules directory)
+// │   ├── _button.scss
+// │   └── _dropdown.scss
+// ├── pages
+// │   ├── _pages.scss (includes everything in pages directory)
+// │   └──_homepage.scss (these should be as sparse as possible)
+// ├── surgical
+// │   ├── _surgical.scss (includes everything in surgical directory)
+// │   ├── _spacing.scss
+// │   └──_text-alignment.scss
+// └── vendor
+//     ├── _vendors.scss (includes everything in vendor directory)
+//     └── bootstrap
+//         └── _bootstrap.grid.scss
+
+// Mixins & variables
+@import "base/base";
+
+// Vendor styles
+@import "vendor/vendors";
+
+// Layout rules
+@import "layout/layout";
+
+// Module rules
+@import "modules/modules";
+
+// Surgical rules
+@import "surgical/surgical";
+
+// Page rules
+@import "pages/pages";
