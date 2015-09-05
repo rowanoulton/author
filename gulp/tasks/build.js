@@ -2,7 +2,7 @@ var gulp = require('gulp')
 var gulpSequence = require('gulp-sequence')
 
 gulp.task('build', function (cb) {
-  var tasks = ['clean', ['images'], ['templates', 'sass']]
+  var tasks = ['clean', ['images'], ['templates', 'sass', 'browserify']]
   tasks.push(cb)
   gulpSequence.apply(this, tasks)
 })

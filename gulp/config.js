@@ -21,5 +21,13 @@ module.exports = {
     images: {
         src: sourceDir + '/images/**',
         dest: outputDir + '/assets/images'
+    },
+    browserify: {
+        bundleConfigs: [{
+            entries: sourceDir + '/javascripts/author.js',
+            dest: outputDir + '/assets/javascripts',
+            outputName: 'author.js',
+            extensions: ['.js']
+        }]
     }
 }
