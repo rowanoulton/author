@@ -2,7 +2,7 @@ var sourceDir = './src'
 var outputDir = './public'
 
 module.exports = {
-    publicAssets: outputDir + '/assets',
+    publicAssets: outputDir,
     browserSync: {
         proxy: 'localhost:8080'
     },
