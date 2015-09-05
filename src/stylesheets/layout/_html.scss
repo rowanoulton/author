@@ -1,0 +1,13 @@
+html {
+    height: 100%;
+
+    // Reset box sizing to border box the modern way
+    // As per https://css-tricks.com/inheriting-box-sizing-probably-slightly-better-best-practice/
+    box-sizing: border-box;
+}
+
+*,
+*:before,
+*:after {
+    box-sizing: inherit;
+}

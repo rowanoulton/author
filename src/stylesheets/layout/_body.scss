@@ -9,5 +9,6 @@ body {
     @include font-size($font-size);
     background: $colour-background;
     color: $colour-text;
+    height: 100%;
 }
 
