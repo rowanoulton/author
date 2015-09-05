@@ -1,2 +1,4 @@
 node_modules/
-public/
+public/*.html
+public/assets/*
+!public/assets/fonts/

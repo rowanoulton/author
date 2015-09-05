@@ -1,0 +1,13 @@
+body {
+    // Beware, using optimizeLegibility on mobile clients can cause
+    // significant performance issues in rendering pages
+    // see: https://css-tricks.com/almanac/properties/t/text-rendering/
+    text-rendering: optimizeLegibility;
+    -webkit-font-smoothing: antialiased;
+    font-smoothing: antialiased;
+    font-family: $font-family;
+    @include font-size($font-size);
+    background: $colour-background;
+    color: $colour-text;
+}
+
