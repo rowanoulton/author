@@ -3,6 +3,7 @@ var debounce = require('debounce')
 
 $(function () {
   var inputNode = $('textarea')
+  var highlightNode = $('.highlights')
   var previousValue = inputNode.val()
   var handleChange
 
@@ -12,6 +13,7 @@ $(function () {
     if (value !== previousValue) {
       console.log('Value changed')
       previousValue = value
+      highlightNode.html(value)
     }
   }, 300)
 
