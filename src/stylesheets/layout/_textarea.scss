@@ -1,0 +1,15 @@
+textarea {
+    border: 0;
+    background: transparent;
+    appearance: none;
+    outline: none;
+    padding: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 100;
+
+    // Fixes webkit bug where font smoothing is not applied to inputs
+    // and buttons even if font smoothing is applied to everything via
+    // the <body> tag. See http://jameskoster.co.uk/work/using-webkit-font-smoothing-antialiased-check-your-buttons/
+    -webkit-font-smoothing: antialiased;
+}
