@@ -1,6 +1,6 @@
 var $ = require('jquery')
 var debounce = require('debounce')
-var checks = [{ fn: require('adverb-where'), name: 'adverb' }]
+var checks = [{ fn: require('./modules/adverb-where/adverbs'), name: 'adverb' }]
 
 $(function () {
   var inputNode = $('textarea')
