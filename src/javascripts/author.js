@@ -1,5 +1,6 @@
 var $ = require('jquery')
 var debounce = require('debounce')
+var selection = require('./modules/save-selection')
 var checks = [
   { fn: require('./modules/adverb-where/adverbs'), name: 'adverb' },
   { fn: require('passive-voice'), name: 'passive-voice' }
@@ -8,26 +9,17 @@ var checks = [
 $(function () {
   var editorNode = $('.js-editor')
   var previousValue = editorNode.text()
+  var getIssues
+  var getSlices
+  var getMarkup
   var handleChange
-  var markup
+  var updateEditor
 
-  handleChange = debounce(function () {
-    var value = editorNode.text()
-
-    if (value !== previousValue) {
-      previousValue = value
-      markup(value)
-    }
-  }, 300)
-
-  markup = function (value) {
-    var html = ''
+  getIssues = function (text) {
     var issues = []
-    var slices = {}
-    var previousEnd = 0
 
     $.each(checks, function (key, checker) {
-      var found = checks[key].fn(value)
+      var found = checks[key].fn(text)
       if (found.length) {
         $.each(found, function (index, foundItem) {
           issues.push({ type: checks[key].name, start: foundItem.index, end: (foundItem.index + foundItem.offset)})
@@ -35,32 +27,62 @@ $(function () {
       }
     })
 
-    if (issues.length) {
-      $.each(issues, function (index, issue) {
-        if (issue.start in slices) {
-          if (issue.end > slices[issue.start].end) {
-            slices[issue.start] = { end: issue.end, type: issue.type }
-          }
-        } else {
+    return issues
+  }
+
+  getSlices = function (issues) {
+    var slices = {}
+
+    $.each(issues, function (index, issue) {
+      if (issue.start in slices) {
+        if (issue.end > slices[issue.start].end) {
           slices[issue.start] = { end: issue.end, type: issue.type }
         }
-      })
-    }
+      } else {
+        slices[issue.start] = { end: issue.end, type: issue.type }
+      }
+    })
+
+    return slices
+  }
+
+  getMarkup = function (text, slices) {
+    var previousEnd = 0
+    var html = ''
 
     $.each(slices, function (start, slice) {
       var end = slice.end
       var type = slice.type
 
-      html += value.slice(previousEnd, start)
-      html += '<span class="highlight highlight--' + type + '">' + value.slice(start, end) + '</span>'
+      html += text.slice(previousEnd, start)
+      html += '<span class="highlight highlight--' + type + '">' + text.slice(start, end) + '</span>'
 
       previousEnd = end
     })
 
-    html += value.slice(previousEnd, value.length)
+    html += text.slice(previousEnd, text.length)
 
-    editorNode.html(html)
+    return html
   }
+
+  updateEditor = function (text) {
+    var issues = getIssues(text)
+    var slices = getSlices(issues)
+    var markup = getMarkup(text, slices)
+    var cursorPosition = selection.save(editorNode.get(0))
+
+    editorNode.html(markup)
+    selection.restore(editorNode.get(0), cursorPosition)
+  }
+
+  handleChange = debounce(function () {
+    var value = editorNode.text()
+
+    if (value !== previousValue) {
+      previousValue = value
+      updateEditor(value)
+    }
+  }, 100)
 
   $.each(['change', 'onpropertychange', 'input', 'keydown', 'click', 'focus', 'scroll'], function (index, eventName) {
     editorNode.on(eventName, handleChange)
