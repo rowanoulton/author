@@ -6,23 +6,21 @@ var checks = [
 ]
 
 $(function () {
-  var inputNode = $('textarea')
-  var highlightNode = $('.highlights')
-  var previousValue = inputNode.val()
+  var editorNode = $('.js-editor')
+  var previousValue = editorNode.text()
   var handleChange
-  var populateHighlighters
-  var emptyHighlighters
+  var markup
 
   handleChange = debounce(function () {
-    var value = inputNode.val()
+    var value = editorNode.text()
 
     if (value !== previousValue) {
       previousValue = value
-      populateHighlighters(value)
+      markup(value)
     }
   }, 300)
 
-  populateHighlighters = function (value) {
+  markup = function (value) {
     var html = ''
     var issues = []
     var slices = {}
@@ -49,8 +47,7 @@ $(function () {
       })
     }
 
-
-    $.each(slices, function(start, slice) {
+    $.each(slices, function (start, slice) {
       var end = slice.end
       var type = slice.type
 
@@ -62,15 +59,10 @@ $(function () {
 
     html += value.slice(previousEnd, value.length)
 
-    emptyHighlighters()
-    highlightNode.html(html)
-  }
-
-  emptyHighlighters = function () {
-    highlightNode.empty()
+    editorNode.html(html)
   }
 
   $.each(['change', 'onpropertychange', 'input', 'keydown', 'click', 'focus', 'scroll'], function (index, eventName) {
-    inputNode.on(eventName, handleChange)
+    editorNode.on(eventName, handleChange)
   })
 })
