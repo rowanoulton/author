@@ -2,7 +2,7 @@ var $ = require('jquery')
 var debounce = require('debounce')
 var selection = require('./modules/save-selection')
 var checks = [
-  { fn: require('./modules/adverb-where/adverbs'), name: 'adverb' },
+  { fn: require('./modules/adverbs'), name: 'adverb' },
   { fn: require('passive-voice'), name: 'passive-voice' }
 ]
 
