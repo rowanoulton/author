@@ -8,12 +8,13 @@ var checks = [
 
 $(function () {
   var editorNode = $('.js-editor')
+  var highlighterNode = $('.js-highlighter')
   var previousValue = editorNode.text()
   var getIssues
   var getSlices
   var getMarkup
   var handleChange
-  var updateEditor
+  var updateHighlighter
 
   getIssues = function (text) {
     var issues = []
@@ -65,22 +66,20 @@ $(function () {
     return html
   }
 
-  updateEditor = function (text) {
+  updateHighlighter = function (text) {
     var issues = getIssues(text)
     var slices = getSlices(issues)
     var markup = getMarkup(text, slices)
-    var cursorPosition = selection.save(editorNode.get(0))
 
-    editorNode.html(markup)
-    selection.restore(editorNode.get(0), cursorPosition)
+    highlighterNode.html(markup)
   }
 
   handleChange = debounce(function () {
-    var value = editorNode.text()
+    var value = editorNode.html()
 
     if (value !== previousValue) {
       previousValue = value
-      updateEditor(value)
+      updateHighlighter(value)
     }
   }, 100)
 
