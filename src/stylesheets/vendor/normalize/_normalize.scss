@@ -464,3 +464,13 @@ a {
 @-ms-viewport {
     width: device-width;
 }
+/**
+ * Enable placeholder on contenteditable elements
+ * as per http://codepen.io/flesler/pen/AEIFc
+ */
+
+[contenteditable=true]:empty:before {
+    content: attr(placeholder);
+    color: #ccc;
+    display: block; /* For Firefox */
+}
