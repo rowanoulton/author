@@ -81,7 +81,7 @@ $(function () {
       previousValue = value
       updateHighlighter(value)
     }
-  }, 100)
+  }, 50)
 
   $.each(['change', 'onpropertychange', 'input', 'keydown', 'click', 'focus', 'scroll'], function (index, eventName) {
     editorNode.on(eventName, handleChange)
