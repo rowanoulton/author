@@ -1,6 +1,5 @@
 var $ = require('jquery')
 var debounce = require('debounce')
-var selection = require('./modules/save-selection')
 var checks = [
   { fn: require('adverbs'), name: 'adverb' },
   { fn: require('passive-voice'), name: 'passive-voice' },
