@@ -3,7 +3,8 @@ var debounce = require('debounce')
 var selection = require('./modules/save-selection')
 var checks = [
   { fn: require('adverbs'), name: 'adverb' },
-  { fn: require('passive-voice'), name: 'passive-voice' }
+  { fn: require('passive-voice'), name: 'passive-voice' },
+  { fn: require('too-wordy'), name: 'long-word' }
 ]
 
 $(function () {
