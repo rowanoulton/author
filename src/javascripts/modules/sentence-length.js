@@ -26,7 +26,6 @@ module.exports = function () {
 
   transform = function (text) {
     var fragment
-    var sentenceNodes
 
     // Always insert an opening tag at the beginning
     // and a close tag at the end
