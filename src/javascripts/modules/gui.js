@@ -22,7 +22,7 @@ module.exports = function () {
 
     if (nodes.length) {
       nodes.each(function () {
-        if ($(this).text() !== '') count++
+        if ($(this).text().trim() !== '') count++
       })
     }
 
@@ -39,10 +39,8 @@ module.exports = function () {
 
   getReadingTime = function (wordCount) {
     var wordsPerMinute = 300
-    var minimum = 1
-    var estimate = Math.ceil(wordCount / wordsPerMinute)
 
-    return Math.max(estimate, minimum)
+    return Math.ceil(wordCount / wordsPerMinute)
   }
 
   transform = function (text) {
