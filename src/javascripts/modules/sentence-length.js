@@ -52,7 +52,7 @@ module.exports = function () {
       }
     })
 
-    return text
+    return fragment.html()
   }
 
   return pipeline(transform)
