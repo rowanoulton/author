@@ -10,7 +10,7 @@
     outline: none;
     padding: 0;
     width: calc(100% - 40px);
-    height: 100%;
+    height: calc(100% - 80px);
     z-index: 100;
 
     // Fixes webkit bug where font smoothing is not applied to inputs
