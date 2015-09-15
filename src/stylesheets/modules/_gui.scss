@@ -1,0 +1,15 @@
+.gui {
+    position: absolute;
+    bottom: 40px;
+    left: 20px;
+    right: 20px;
+}
+
+.gui-counter {
+    @include font-size(16px);
+    font-weight: $font-weight-bold;
+    color: $colour-light-text;
+}
+
+.gui-counter--left  { float: left; }
+.gui-counter--right { float: right; }
