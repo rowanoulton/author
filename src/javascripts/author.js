@@ -26,8 +26,8 @@ $(function () {
           .pipe(gui())
           .pipe(destination(highlighterNode))
 
-    // Push input through
-    stream.push(text)
+    // Push input through - ensure at least some content is pushed (hence trailing space)
+    stream.push(text + ' ')
     stream.push(null)
   }
 
