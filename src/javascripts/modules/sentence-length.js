@@ -1,6 +1,9 @@
 var $ = require('jquery')
 var pipeline = require('./pipeline')
 var wordcount = require('wordcount')
+var firstOpenDivRegex = /(<div>)/i
+var openDivRegex = /(<div>)/gi
+var closeDivRegex = /(<\/div>)/gi
 var periodRegex = /\.(\)|\"|\”|\'|\”|&#39;|&#34;|&quot;|&rdquo;)?( |&nbsp;)/g
 var questionRegex = /\?(\)|\"|\”|\'|\”|&#39;|&#34;|&quot;|&rdquo;)?( |&nbsp;)/g
 var exclamationRegex = /\!(\)|\"|\”|\'|\”|&#39;|&#34;|&quot;|&rdquo;)?( |&nbsp;)/g
@@ -28,6 +31,9 @@ module.exports = function () {
     // Always insert an opening tag at the beginning
     // and a close tag at the end
     text = sentenceTagOpen.concat(text)
+                          .replace(firstOpenDivRegex, sentenceTagClose + '$1') // Close the opening <span>
+                          .replace(openDivRegex, '$1' + sentenceTagOpen) // Open all other spans
+                          .replace(closeDivRegex, sentenceTagClose + '$1')
                           .replace(periodRegex, '.' + replacement)
                           .replace(questionRegex, '?' + replacement)
                           .replace(exclamationRegex, '!' + replacement)
