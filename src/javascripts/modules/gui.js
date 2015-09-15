@@ -6,9 +6,11 @@ var pipeline = require('./pipeline')
 module.exports = function () {
   var sentenceCountNode = $('#sentence-count')
   var wordCountNode = $('#word-count')
+  var readingTimeNode = $('#reading-time')
   var transform
   var getWordCount
   var getSentenceCount
+  var getReadingTime
 
   getSentenceCount = function (text) {
     var fragment = $('<div>' + text + '</div>')
@@ -32,12 +34,22 @@ module.exports = function () {
     return wordcount(parsedText)
   }
 
-  transform = function (text) {
-    var sentenceCount = numeral(getSentenceCount(text))
-    var wordCount = numeral(getWordCount(text))
+  getReadingTime = function (wordCount) {
+    var wordsPerMinute = 300
+    var minimum = 1
+    var estimate = Math.ceil(wordCount / wordsPerMinute)
 
-    sentenceCountNode.html(sentenceCount.format('0,0'))
-    wordCountNode.html(wordCount.format('0,0'))
+    return Math.max(estimate, minimum)
+  }
+
+  transform = function (text) {
+    var sentenceCount = getSentenceCount(text)
+    var wordCount = getWordCount(text)
+    var readingTime = getReadingTime(wordCount)
+
+    sentenceCountNode.html(numeral(sentenceCount).format('0,0'))
+    wordCountNode.html(numeral(wordCount).format('0,0'))
+    readingTimeNode.html(numeral(readingTime).format('0,0'))
 
     return text
   }
