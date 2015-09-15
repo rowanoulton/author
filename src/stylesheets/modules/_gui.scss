@@ -9,6 +9,7 @@
 .gui-counter {
     @include font-size(16px);
     float: right; // Necessary to have text overflow to the left
+    min-width: 100%;
     font-weight: $font-weight-bold;
     color: $colour-light-text;
 }
