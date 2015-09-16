@@ -47,9 +47,9 @@ module.exports = function () {
   }
 
   getReadingTime = function (wordCount) {
-    var wordsPerMinute = 300
+    var wordsPerMinute = 200
 
-    return Math.ceil(wordCount / wordsPerMinute)
+    return Math.floor(wordCount / wordsPerMinute)
   }
 
   transform = function (text) {
