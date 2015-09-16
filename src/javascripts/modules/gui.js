@@ -19,10 +19,42 @@ module.exports = function () {
   var readingTimeWrapNode = $('#reading-time')
   var readingTimeNode = readingTimeWrapNode.find('.gui-counter-value')
   var readingTimePluralNode = readingTimeWrapNode.find('.gui-counter-plural')
+  var showLine
+  var hideLine
   var transform
   var getWordCount
   var getSentenceCount
   var getReadingTime
+
+  showLine = function (node) {
+    if (!node.hasClass('is-animating-to-show')) {
+      node.stop()
+          .removeClass('is-animating-to-hide')
+          .addClass('is-animating-to-show')
+          .fadeIn({
+            duration: 900,
+            easing: 'easeOutQuad',
+            complete: function () {
+              $(this).removeClass('is-animating-to-show')
+            }
+          })
+    }
+  }
+
+  hideLine = function (node) {
+    if (!node.hasClass('is-animating-to-hide')) {
+      node.stop()
+          .removeClass('is-animating-to-show')
+          .addClass('is-animating-to-hide')
+          .fadeOut({
+            duration: 300,
+            complete: function () {
+              $(this).removeClass('is-animating-to-hide')
+            }
+          })
+    }
+  }
+
 
   getSentenceCount = function (text) {
     var fragment = $('<div>' + text + '</div>')
@@ -70,12 +102,12 @@ module.exports = function () {
     if (readingTime !== 1) readingTimePluralNode.addClass('is-visible')
 
     // Show/hide gui line
-    if (sentenceCount === 0) sentenceCountWrapNode.stop().fadeOut({duration: 300, easing: 'easeOutQuad'})
-    if (sentenceCount !== 0) sentenceCountWrapNode.stop().fadeIn({duration: 900, easing: 'easeOutQuad'})
-    if (wordCount === 0) wordCountWrapNode.stop().fadeOut({duration: 300, easing: 'easeOutQuad'})
-    if (wordCount !== 0) wordCountWrapNode.stop().fadeIn({duration: 900, easing: 'easeOutQuad'})
-    if (readingTime === 0) readingTimeWrapNode.stop().fadeOut({duration: 300, easing: 'easeOutQuad'})
-    if (readingTime !== 0) readingTimeWrapNode.stop().fadeIn({duration: 900, easing: 'easeOutQuad'})
+    if (sentenceCount === 0) hideLine(sentenceCountWrapNode)
+    if (sentenceCount !== 0) showLine(sentenceCountWrapNode)
+    if (wordCount === 0) hideLine(wordCountWrapNode)
+    if (wordCount !== 0) showLine(wordCountWrapNode)
+    if (readingTime === 0) hideLine(readingTimeWrapNode)
+    if (readingTime !== 0) showLine(readingTimeWrapNode)
 
     return text
   }
